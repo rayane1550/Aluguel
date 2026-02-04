@@ -23,10 +23,8 @@ class Imovel (models.Model): # class usuario
         ('ALUGADO', 'alugado')
     ]
 
-    nome = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
+    titulo = models.CharField(max_length=100)
     tipo = models.CharField(max_length=100)
-    titulo = models.CharField(max_length=50)
     valor_aluguel = models.DecimalField(max_digits=10, decimal_places=2) # pesquisar
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     locador = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='imoveis')
