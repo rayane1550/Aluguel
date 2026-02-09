@@ -121,5 +121,5 @@ class PagamentolistCreateAPIView(ListCreateAPIView):
 ############ UPDATE E DELETE PAGAMENTO ##############
 class PagamentoUpdateDestroyView(RetrieveUpdateDestroyAPIView):
         queryset = Pagamento.objects.all()
-        serializer_class = PagamentoSerializer
+        serializer_class = PagamentoSerializer #colocar mensagem de erro se nao achar o pagamento
 
