@@ -3,16 +3,16 @@ from .views import *
 
 urlpatterns = [
     path('usuarios/', UsuarioListCreateAPIView.as_view()),
-    path('usuario/<int:pk>/', UsuarioUpdateDestroyView.as_view()), # Endpoint para update e delete de usuario
-    path('users/', listar_usuarios), # Metodo para listar e criar usuarios
+    path('usuario/<int:pk>/', UsuarioDetailView.as_view()), # Endpoint para update e delete de usuario
+
+
     path('imoveis/', ImovellistCreateAPIView.as_view()),
-    path('imovel/<int:pk>/', ImovelUpdateDestroyView.as_view()), # Endpoint para update e delete de imovel
-    path('imoveis_listar/', listar_imoveis), # Metodo para listar e criar imoveis
+    path('imovel/<int:pk>/', ImovelDetailView.as_view()), # Endpoint para update e delete de imovel
+
+
     path('contratos/', ContratolistCreateAPIView.as_view()),
-    path('contrato/<int:pk>/', ContratoUpdateDestroyView.as_view()),
-    path('contratos_listar/', listar_contratos), 
+    path('contrato/<int:pk>/', ContratoDetailView.as_view()),
     
     path('pagamentos/', PagamentolistCreateAPIView.as_view()),
-    path('pagamentos/<int:pk>/', PagamentoUpdateDestroyView.as_view()),
-    path('pagamentos_listar/', listar_pagamentos),
+    path('pagamentos/<int:pk>/', PagamentoDetailView.as_view()),
 ]

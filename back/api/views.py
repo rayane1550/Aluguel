@@ -32,11 +32,9 @@ class UsuarioListCreateAPIView(ListCreateAPIView): # classe para listar e criar 
 
 
 ############ UPDATE E DELETE USUARIO ##############
-class UsuarioUpdateDestroyView(RetrieveUpdateDestroyAPIView): # classe para atualizar e deletar usuarios
+class UsuarioDetailView(RetrieveUpdateDestroyAPIView): # classe para atualizar e deletar usuarios
      queryset = Usuario.objects.all()
      serializer_class = UsuarioSerializer
-
-
 
 
 
@@ -61,7 +59,7 @@ class ImovellistCreateAPIView(ListCreateAPIView):
      serializer_class = ImovelSerializer
 
 ############ UPDATE E DELETE IMOVEL ##############
-class ImovelUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+class ImovelDetailView(RetrieveUpdateDestroyAPIView):
      queryset = Imovel.objects.all()
      serializer_class = ImovelSerializer
 
@@ -90,7 +88,7 @@ class ContratolistCreateAPIView(ListCreateAPIView):
      serializer_class = ContratoSerializer
 
 ############ UPDATE E DELETE CONTRATO ##############
-class ContratoUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+class ContratoDetailView(RetrieveUpdateDestroyAPIView):
         queryset = Contrato.objects.all()
         serializer_class = ContratoSerializer
 
@@ -119,7 +117,30 @@ class PagamentolistCreateAPIView(ListCreateAPIView):
         serializer_class = PagamentoSerializer
 
 ############ UPDATE E DELETE PAGAMENTO ##############
-class PagamentoUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+class PagamentoDetailView(RetrieveUpdateDestroyAPIView):
         queryset = Pagamento.objects.all()
         serializer_class = PagamentoSerializer #colocar mensagem de erro se nao achar o pagamento
+
+
+def get(self, request):
+      usuario = Usuario.objects.all()
+      serializer = UsuarioSerializer(usuario, many=True)
+      return Response(serializer.data)
+
+def post(self, request):
+      seriallizer = UsuarioSerializer(data=request.data)#recebe os dados do request e transforma em json
+      if seriallizer.is_valid(): #valida os dados
+            seriallizer.save() #salva os dados no banco
+            return Response(seriallizer.data, status=status.HTTP_201_CREATED) #retorna os dados salvos com status 201
+      return Response(seriallizer.errors, status=status.HTTP_400_BAD_REQUEST) #retorna os erros com status 400
+
+class UsuarioDetailView(APIView):
+      
+      def get_object(self, pk):#metodo para pegar o objeto do banco de dados para a chave primaria e retornar o objeto ou retornar 404 se nao encontrar
+          return Usuario.objects.get(pk=pk)
+      
+      def get(self, request, pk): #metodo para pegar o objeto do banco de dados e retornar os dados do objeto o primero pega o id e esse pega o usuario
+          usuario = self.get_object(pk)
+          serializer = UsuarioSerializer(usuario)
+          return Response(serializer.data)
 
