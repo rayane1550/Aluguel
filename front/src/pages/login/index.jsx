@@ -22,6 +22,7 @@ export default function Home(){
 
             localStorage.setItem('token', response.data.access)
             setMessage("Usuário logado")
+            navigate('/homeuser')
 
             
         } catch (error) {

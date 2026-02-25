@@ -9,6 +9,55 @@ from rest_framework.decorators import api_view # Decorador para views baseadas e
 from .serializers import *
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
+from .filters import UsuarioFilter
+
+############### Com NodelViewSet ########################
+
+class UsuarioViewSet(ModelViewSet):
+    queryset = Usuario.objects.all() 
+    serializer_class = UsuarioSerializer
+    # permission_classes = [IsAuthenticated] # Permissões para acesso a viewset (ex: IsAuthenticated, AllowAny, etc)
+
+    filter_backends = [DjangoFilterBackend] # Configura o backend de filtragem
+    filterset_class = UsuarioFilter # Especifica a classe de filtro para a viewset
+
+
+
+
+    # def get_queryset(self):
+    #     tipo = self.request.query_params.get('tipo', None) # Recebe o parâmetro 'tipo' da query string
+    #     if tipo:
+    #         self.queryset = self.queryset.filter(tipo=tipo) # Filtra os usuários pelo tipo, se o parâmetro for fornecido
+    #     return self.queryset # Retorna o queryset filtrado ou completo, dependendo da presença do parâmetro 'tipo'
+
+class ImovelViewSet(ModelViewSet):
+    queryset = Imovel.objects.all()
+    serializer_class = ImovelSerializer
+
+    # def get_queryset(self):
+    #     tipo= self.request.query_params.get('tipo', None) # Recebe o parâmetro 'tipo' da query string
+    #     status= self.request.query_params.get('status', None) # Recebe o parâmetro 'status' da query string
+
+    #     if tipo:
+    #         self.queryset = self.queryset.filter(tipo=tipo) # Filtra os imóveis pelo tipo, se o parâmetro for fornecido
+    #     if status:
+    #         self.queryset = self.queryset.filter(status=status) # Filtra os imóveis pelo status, se o parâmetro for fornecido
+    #     return self.queryset # Retorna o queryset filtrado ou completo, dependendo da presença dos parâmetros 'tipo' e 'status'
+
+class ContratoViewSet(ModelViewSet):
+    queryset = Contrato.objects.all()
+    serializer_class = ContratoSerializer
+
+class PagamentoViewSet(ModelViewSet):
+    queryset = Pagamento.objects.all()
+    serializer_class = PagamentoSerializer
+
+
+
+
+
+
 
 
 
@@ -322,22 +371,4 @@ def listar_imoveis(request):
 
 
 
-
-############### Com NodelViewSet ########################
-
-class UsuarioViewSet(ModelViewSet):
-    queryset = Usuario.objects.all()
-    serializer_class = UsuarioSerializer
-    permission_classes = [IsAuthenticated] # Permissões para acesso a viewset (ex: IsAuthenticated, AllowAny, etc)
-class ImovelViewSet(ModelViewSet):
-    queryset = Imovel.objects.all()
-    serializer_class = ImovelSerializer
-
-class ContratoViewSet(ModelViewSet):
-    queryset = Contrato.objects.all()
-    serializer_class = ContratoSerializer
-
-class PagamentoViewSet(ModelViewSet):
-    queryset = Pagamento.objects.all()
-    serializer_class = PagamentoSerializer
 

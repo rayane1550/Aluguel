@@ -10,7 +10,7 @@ from rest_framework_simplejwt.views import (
 
 router = DefaultRouter()
 
-router.register(r'usuarios', UsuarioViewSet, basename='usuario')
+router.register(r'usuarios', UsuarioViewSet, basename='usuario') # como é um ModelViewSet, o DRF já sabe que as URLs devem ser do tipo /usuarios/ e /usuarios/<id>/
 router.register(r'imoveis', ImovelViewSet, basename='imovel')
 router.register(r'contratos', ContratoViewSet, basename='contrato')
 router.register(r'pagamentos', PagamentoViewSet, basename='pagamento')
